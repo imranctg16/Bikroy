@@ -5,8 +5,8 @@ function show_all_user()
     $result = $user_obj->get_all_user();
     echo "<h3>Registered User For Testing </h3>";
     while ($row = mysqli_fetch_assoc($result)) {
-        echo "User Name : = ".$row['user_name'] . "<br>";
-        echo "User_Passward := ".$row['user_name'] . "<br>";
+        echo "User Name : = " . $row['user_name'] . "<br>";
+        echo "User_Passward := " . $row['user_name'] . "<br>";
 
     }
 }
@@ -145,6 +145,7 @@ function user_logout()
     session_destroy();
     header('Location: login.php');
 }
+
 ?>
 
 
@@ -158,6 +159,7 @@ function is_user_logged_in()
         return false;
     }
 }
+
 ?>
 
 
