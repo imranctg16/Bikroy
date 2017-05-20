@@ -139,14 +139,6 @@ class Users
     }
 }
 
-
-/**
- * Class Division
- * Eita Division er Jonne may b eita use kora jabe
- * IT need a (Division) Table to work perfectly
- * Have a Look
- *
- */
 class Division
 {
     public $connection;
@@ -177,4 +169,81 @@ class Division
         }
     }
 }
+class Category
+{
+    public $connection;
+    function __construct()
+    {
+        $this->connection = new Connection;
+    }
+
+    public function get_all_category()
+    {
+        $sql = "SELECT * FROM category";
+        $result = $this->connection->mysqli->query($sql);
+        if (!$result) {
+            die("Category  query Failed " . mysqli_error($this->connection->mysqli));
+        } else {
+            return $result;
+        }
+    }
+
+
+}
+class Sub_category
+{
+    public $connection;
+    function __construct()
+    {
+        $this->connection = new Connection;
+    }
+    public function get_valid_category($category_id)
+    {
+        $sql = "SELECT * FROM Sub_category WHERE cat_id=$category_id";
+
+        $result = $this->connection->mysqli->query($sql);
+        if (!$result) {
+            die("Division query Failed " . mysqli_error($this->connection->mysqli));
+        } else {
+            return $result;
+        }
+    }
+
+}
+class Data_condition
+{
+    public $connection;
+    function __construct()
+    {
+        $this->connection = new Connection;
+    }
+
+
+}
+
+class Data
+{
+    public $connection;
+    function __construct()
+    {
+        $this->connection = new Connection;
+    }
+
+    function save_data($user_id,$division_id,$cat_id,$sub_cat_id,$data_tag,$data_image,$data_price)
+    {
+        $query = "INSERT INTO data(user_id,division_id,cat_id,sub_cat_id,data_tag,data_picture,data_price,data_date)";
+        $query .= " VALUES($user_id,$division_id,$cat_id,$sub_cat_id,'{$data_tag}','{$data_image}','{$data_price}', now())";
+        $result = $this->connection->mysqli->query($query);
+        if (!$result) {
+            die("Division query Failed " . mysqli_error($this->connection->mysqli));
+        } else {
+            return $result;
+        }
+    }
+
+}
+
+
+
+
 ?>

@@ -16,10 +16,9 @@ include 'Basic_structure/navbar.php';
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-8">
-            <title>Welcome To Bikroy.Com</title>
-
+            <title> Post What You Want to sell </title>
             <?php
-                show_reg_form();
+                show_post_form();
             ?>
 
         </div>

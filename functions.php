@@ -220,3 +220,209 @@ function show_user_info($user_id)
 
 ?>
 
+
+
+
+
+
+<?php
+function show_post_form()
+{
+    ///class_variable
+    $user_obj = new Users;
+    $division_obj = new Division;
+    $data_obj = new Data;
+    $data_condition_obj = new Data_condition;
+    $category_obj = new Category;
+    $sub_category_obj = new Sub_category;
+
+    ///error_variable
+    $image_error = "";
+    $data_tag_error = "";
+    $data_price_error= "";
+
+    ///useful_variable
+    $data_tag="";
+    $data_image = "";
+    $data_price="";
+
+
+
+
+    if(isset($_POST['get_option']))
+    {
+        echo "at least the Ajax Call came ";
+
+        $category_id = $_POST['get_option'];
+
+        $result = $sub_category_obj->get_valid_category($category_id);
+
+        while ($row = mysqli_fetch_assoc($result)) {
+           // echo "<option>".$row['sub_cat_name'] ."</option>";
+            echo "<option value='{$row['sub_cat_id']}'>{$row['sub_cat_name']}</option>";
+        }
+        exit();
+    }
+
+    if (isset($_POST['submit_adv'])) {
+        $user_id = $_SESSION['user_id'];
+        $user_name = $user_obj->get_user_name($user_id);
+        $division_id = $_POST['division'];
+        $category_id = $_POST['category'];
+        $sub_category_id = $_POST['sub_category'];
+        $data_tag=$_POST['data_tag'];
+        $data_price=$_POST['data_price'];
+
+        echo  $user_id . " ".$division_id." ".$category_id." ".$sub_category_id;
+
+
+
+
+        //ImageValidation ,source= w3school.com
+        $target_dir = "images/";
+        $data_image = $_FILES['data_image']['name'];
+        $target_file = $target_dir . basename($data_image);
+        $data_image_temp = "";
+        if ($data_image) {
+            $data_image_temp = $_FILES['data_image']['tmp_name'];
+            $uploadOk = 1;
+            $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
+        }
+
+        if ($data_image_temp) {
+            $check = getimagesize($data_image_temp);
+            if ($check !== false) {
+                //  echo "File is an image - " . $check["mime"] . ".";
+                $uploadOk = 1;
+            } else {
+                //echo "File is not an image.";
+                $image_error .= "File is not an image.";
+                $uploadOk = 0;
+            }
+            /*
+                        if (file_exists($target_file)) {
+                            //echo "Sorry, file already exists.";
+                            $image_error .= "Sorry, file already exists.";
+                            $uploadOk = 0;
+                        }*/
+
+            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                && $imageFileType != "gif"
+            ) {
+                // echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                $image_error = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                $uploadOk = 0;
+            }
+            if ($uploadOk == 0) {
+                //echo "Sorry, your file was not uploaded.";
+                $image_error .= "Sorry, your file was not uploaded.";
+                // if everything is ok, try to upload file
+            } else {
+                if (move_uploaded_file($data_image_temp, $target_file)) {
+                    //echo "The file " . basename($_FILES["fileToUpload"]["name"]) . " has been uploaded.";
+
+                } else {
+                    //echo "Sorry, there was an error uploading your file.";
+                    $image_error = "Sorry, there was an error uploading your file.";
+                }
+            }
+        } else {
+            $image_error = "No Image was Selected";
+        }
+
+        if ($data_tag_error == "" && $image_error == "" && $data_price_error == "") {
+
+            $success = $data_obj->save_data($user_id, $division_id, $category_id, $sub_category_id, $data_tag, $data_image,$data_price);
+
+            if ($success) {
+                echo "Successfully Saved Data";
+            }
+            else {
+                echo "Something Went Wrong in Saving data";
+            }
+        }
+    }
+    ?>
+    <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <div class="form-group">
+                <label for="division">Select A Division</label>
+                <select name="division" id="">
+                    <?php
+                    $all_division = $division_obj->get_all_div();
+                    while ($row = mysqli_fetch_assoc($all_division)) {
+                        $division_name = $row['division_name'];
+                        $division_id = $row['division_id'];
+                        echo "<option value='{$division_id}'>$division_name</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="category">Select a Category </label>
+
+                <select name="category" id="first-choice" onchange="fetch_select(this.value);" >
+                    <?php
+                    $all_category = $category_obj->get_all_category();
+                    while ($row = mysqli_fetch_assoc($all_category)) {
+                        $category_name = $row['cat_name'];
+                        $category_id = $row['cat_id'];
+                        echo "<option value='{$category_id}'>$category_name</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="sub_category">Select a Sub_category </label>
+                <select name="sub_category" id="second-choice">
+                    <option>Please choose from above</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <?php if ($image_error != "") {
+                echo "<label  for='data_image' class='text-center text-danger'>$image_error</label>";
+            } else {
+                echo '<label for="data_image">Your image:</label>';
+            }
+            ?>
+            <input class="form-control" name="data_image" type="file">
+        </div>
+
+        <!-- data_tag field -->
+        <div class="form-group">
+            <?php if ($data_tag_error != "") {
+                echo "<label  for='data_tag' class='text-center text-danger'>$data_tag_error</label>";
+            } else {
+                echo '<label for="data_tag">Place Tag </label>';
+            }
+            ?>
+            <input value="<?php if ($data_tag_error != '') echo $data_tag; ?>" class="form-control" name="data_tag"
+                   type="text">
+        </div>
+
+        <!-- data_price field -->
+        <div class="form-group">
+            <?php if ($data_price_error != "") {
+                echo "<label  for='data_price' class='text-center text-danger'>$data_price_error</label>";
+            } else {
+                echo '<label for="data_price">Asking Price </label>';
+            }
+            ?>
+            <input value="<?php if ($data_tag_error != '') echo $data_price; ?>" class="form-control" name="data_price"
+                   type="text">
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" name="submit_adv" value="Done">
+        </div>
+    </form>
+
+    <?php
+}
+
+?>
+
