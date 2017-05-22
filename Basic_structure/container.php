@@ -46,7 +46,7 @@
 
             while ($row = mysqli_fetch_assoc($select_category)) { ?>
                 <div class="col-md-4">
-                    <h2 class="text-center"><?php echo $row['cat_name']; ?></h2>
+                    <h2 class="text-center"><a href="#"><?php echo $row['cat_name']; ?></a></h2>
                     <p><?php echo $row['cat_description']; ?></p>
                 </div>
             <?php }
