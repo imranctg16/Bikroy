@@ -1,8 +1,6 @@
-
 <?php
 include 'Basic_structure/header.php';
 ?>
-
 
 
 <body>
@@ -10,13 +8,10 @@ include 'Basic_structure/header.php';
 include 'Basic_structure/navbar.php';
 ?>
 <?php
-if(!isset($_SESSION['user_name']))
-{
+if (!isset($_SESSION['user_name'])) {
     user_login();
-}
-else
-{
-        header('Location: index.php');
+} else {
+    header('Location: index.php');
 }
 ?>
 </body>

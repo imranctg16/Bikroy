@@ -1,6 +1,6 @@
 <!--Header Part-->
 <?php
-include 'Basic_structure/header.php'
+include 'Basic_structure/header.php';
 ?>
 
 <!--##############################################-->
@@ -18,7 +18,7 @@ include 'Basic_structure/navbar.php';
         <div class="col-lg-8">
             <title> Post What You Want to sell </title>
             <?php
-                show_post_form();
+            show_post_form();
             ?>
 
         </div>

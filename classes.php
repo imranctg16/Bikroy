@@ -29,6 +29,8 @@ class Connection
         $this->pass = "";
         $this->db_name = "bikroy";
         $this->mysqli = new mysqli($this->host, $this->root, $this->pass, $this->db_name);
+        mysqli_query($this->mysqli,'SET CHARACTER SET utf8');
+        mysqli_query($this->mysqli,"SET SESSION collation_connection ='utf8_general_ci'");
         if ($this->mysqli) {
             //echo "Connectected to " . $this->db_name . "<br>";
         } else {

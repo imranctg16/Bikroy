@@ -121,10 +121,10 @@ function user_login()
             <div class="form-group">
                 <label for="user_passward">Your Passward</label>
                 <input type="password" class="form-control" name="user_passward" placeholder="Enter Passward">
-                <span class="input-group-btn">
-                    <button name="login_submit" type="submit" class="btn btn-primary">Submit</button>
-                </span>
             </div>
+            <span class="input-group-btn">
+                    <button name="login_submit" type="submit" class="btn btn-primary">Submit</button>
+            </span>
         </form>
         <!-- /Login -->
 
