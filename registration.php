@@ -13,7 +13,7 @@ include 'Basic_structure/navbar.php';
 
 
 <!-- Page Content -->
-<div class="container-fluid">
+<div class="container">
     <div class="row">
         <div class="col-lg-8">
             <title> Post What You Want to sell </title>
@@ -24,14 +24,14 @@ include 'Basic_structure/navbar.php';
         </div>
 
     </div>
+    <!-- Footer Part -->
+    <?php
+    include 'Basic_structure/footer.php';
+    ?>
 </div>
 <!-- /.container -->
+
 </body>
 
-<!--##############################################-->
 
-<!-- Footer Part -->
-<?php
-include 'Basic_structure/footer.php';
-?>
 
