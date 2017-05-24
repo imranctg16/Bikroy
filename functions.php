@@ -239,18 +239,15 @@ function show_post_form()
     ///error_variable
     $image_error = "";
     $data_tag_error = "";
-    $data_price_error= "";
+    $data_price_error = "";
 
     ///useful_variable
-    $data_tag="";
+    $data_tag = "";
     $data_image = "";
-    $data_price="";
+    $data_price = "";
 
 
-
-
-    if(isset($_POST['get_option']))
-    {
+    if (isset($_POST['get_option'])) {
         echo "at least the Ajax Call came ";
 
         $category_id = $_POST['get_option'];
@@ -258,7 +255,7 @@ function show_post_form()
         $result = $sub_category_obj->get_valid_category($category_id);
 
         while ($row = mysqli_fetch_assoc($result)) {
-           // echo "<option>".$row['sub_cat_name'] ."</option>";
+            // echo "<option>".$row['sub_cat_name'] ."</option>";
             echo "<option value='{$row['sub_cat_id']}'>{$row['sub_cat_name']}</option>";
         }
         exit();
@@ -270,12 +267,10 @@ function show_post_form()
         $division_id = $_POST['division'];
         $category_id = $_POST['category'];
         $sub_category_id = $_POST['sub_category'];
-        $data_tag=$_POST['data_tag'];
-        $data_price=$_POST['data_price'];
+        $data_tag = $_POST['data_tag'];
+        $data_price = $_POST['data_price'];
 
-        echo  $user_id . " ".$division_id." ".$category_id." ".$sub_category_id;
-
-
+        echo $user_id . " " . $division_id . " " . $category_id . " " . $sub_category_id;
 
 
         //ImageValidation ,source= w3school.com
@@ -332,12 +327,11 @@ function show_post_form()
 
         if ($data_tag_error == "" && $image_error == "" && $data_price_error == "") {
 
-            $success = $data_obj->save_data($user_id, $division_id, $category_id, $sub_category_id, $data_tag, $data_image,$data_price);
+            $success = $data_obj->save_data($user_id, $division_id, $category_id, $sub_category_id, $data_tag, $data_image, $data_price);
 
             if ($success) {
                 echo "Successfully Saved Data";
-            }
-            else {
+            } else {
                 echo "Something Went Wrong in Saving data";
             }
         }
@@ -362,7 +356,7 @@ function show_post_form()
             <div class="form-group">
                 <label for="category">Select a Category </label>
 
-                <select name="category" id="first-choice" onchange="fetch_select(this.value);" >
+                <select name="category" id="first-choice" onchange="fetch_select(this.value);">
                     <?php
                     $all_category = $category_obj->get_all_category();
                     while ($row = mysqli_fetch_assoc($all_category)) {
@@ -426,3 +420,36 @@ function show_post_form()
 
 ?>
 
+
+<?php
+
+function show_all_category()
+{
+    $select_category_class = new Category();
+    $select_category = $select_category_class->get_all_category();
+    while ($row = mysqli_fetch_assoc($select_category)) { ?>
+        <div style="border: dashed" class="col-md-3">
+            <h2 class="text-center"><a
+                        href="sub_category.php?Category_id=<?php echo  $row['cat_id'] ?>"><?php echo $row['cat_name']; ?></a>
+            </h2>
+            <p class="text-center"><?php echo $row['cat_description']; ?></p>
+        </div>
+    <?php }
+} ?>
+
+
+<?php
+
+function show_all_subcategory($category_id)
+{
+    $sub_category_obj = new Sub_category();
+    $result = $sub_category_obj->get_all_subcategory($category_id);
+
+    echo "Total ".mysqli_num_rows($result) . "Sub-Category-found";
+    while ($row = mysqli_fetch_assoc($result)) { ?>
+        <h3><a href=""><?php echo $row['sub_cat_name'] ?></a></h3>
+    <?php }
+
+}
+
+?>

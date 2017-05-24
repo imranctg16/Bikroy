@@ -199,9 +199,9 @@ class Sub_category
     {
         $this->connection = new Connection;
     }
-    public function get_valid_category($category_id)
+    public function  get_all_subcategory($category_id)
     {
-        $sql = "SELECT * FROM Sub_category WHERE cat_id=$category_id";
+        $sql = "SELECT * FROM sub_category WHERE cat_id=$category_id";
 
         $result = $this->connection->mysqli->query($sql);
         if (!$result) {
@@ -210,6 +210,7 @@ class Sub_category
             return $result;
         }
     }
+
 
 }
 class Data_condition

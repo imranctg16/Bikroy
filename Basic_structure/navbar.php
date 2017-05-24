@@ -15,7 +15,16 @@
         <div>
             <ul class="nav navbar-nav">
                 <li><a href="#">Admin</a></li>
-                <li><a href="./registration.php"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
+                <?php
+                    if(is_user_logged_in())
+                    {
+                        echo "<li><a href='./adv_post.php'><span class='glyphicon glyphicon-user'></span>SELL</a></li>";
+                    }
+                    else
+                    {
+                        echo "<li><a href='./registration.php'><span class='glyphicon glyphicon-user'></span>Sign Up</a></li>";
+                    }
+                ?>
             </ul>
             <?php
             if (is_user_logged_in()) {
