@@ -112,21 +112,22 @@ function user_login()
         }
         ?>
 
-
-        <form method="post" action="<?php $_SERVER['PHP_SELF'] ?>">
-            <div class="form-group">
-                <label for="user_email">Your Email</label>
-                <input type="email" class="form-control" name="user_email" placeholder="Enter User Email">
-            </div>
-            <div class="form-group">
-                <label for="user_passward">Your Passward</label>
-                <input type="password" class="form-control" name="user_passward" placeholder="Enter Passward">
-            </div>
-            <span class="input-group-btn">
+        <div class="col-lg-4 col-md-offset-3" style="border: dotted">
+            <form method="post" action="<?php $_SERVER['PHP_SELF'] ?>">
+                <div class="form-group">
+                    <label for="user_email">Your Email</label>
+                    <input type="email" class="form-control" name="user_email" placeholder="Enter User Email">
+                </div>
+                <div class="form-group">
+                    <label for="user_passward">Your Passward</label>
+                    <input type="password" class="form-control" name="user_passward" placeholder="Enter Passward">
+                </div>
+                <span class="input-group-btn">
                     <button name="login_submit" type="submit" class="btn btn-primary">Submit</button>
             </span>
-        </form>
-        <!-- /Login -->
+            </form>
+            <!-- /Login -->
+        </div>
 
     <?php } else {
         echo "Expecting Some error Here ";
@@ -252,7 +253,7 @@ function show_post_form()
 
         $category_id = $_POST['get_option'];
 
-        $result = $sub_category_obj->get_valid_category($category_id);
+        $result = $sub_category_obj->get_all_subcategory($category_id);
 
         while ($row = mysqli_fetch_assoc($result)) {
             // echo "<option>".$row['sub_cat_name'] ."</option>";
@@ -345,6 +346,7 @@ function show_post_form()
                 <select name="division" id="">
                     <?php
                     $all_division = $division_obj->get_all_div();
+                    echo "<option selected disabled>Choose here</option>";
                     while ($row = mysqli_fetch_assoc($all_division)) {
                         $division_name = $row['division_name'];
                         $division_id = $row['division_id'];
@@ -359,9 +361,11 @@ function show_post_form()
                 <select name="category" id="first-choice" onchange="fetch_select(this.value);">
                     <?php
                     $all_category = $category_obj->get_all_category();
+                    echo "<option selected disabled>Choose From Above first </option>";
                     while ($row = mysqli_fetch_assoc($all_category)) {
                         $category_name = $row['cat_name'];
                         $category_id = $row['cat_id'];
+
                         echo "<option value='{$category_id}'>$category_name</option>";
                     }
                     ?>
@@ -430,7 +434,7 @@ function show_all_category()
     while ($row = mysqli_fetch_assoc($select_category)) { ?>
         <div style="border: dashed" class="col-md-3">
             <h2 class="text-center"><a
-                        href="sub_category.php?Category_id=<?php echo  $row['cat_id'] ?>"><?php echo $row['cat_name']; ?></a>
+                        href="sub_category.php?Category_id=<?php echo $row['cat_id'] ?>"><?php echo $row['cat_name']; ?></a>
             </h2>
             <p class="text-center"><?php echo $row['cat_description']; ?></p>
         </div>
@@ -445,7 +449,7 @@ function show_all_subcategory($category_id)
     $sub_category_obj = new Sub_category();
     $result = $sub_category_obj->get_all_subcategory($category_id);
 
-    echo "Total ".mysqli_num_rows($result) . "Sub-Category-found";
+    echo "Total " . mysqli_num_rows($result) . "Sub-Category-found";
     while ($row = mysqli_fetch_assoc($result)) { ?>
         <h3><a href=""><?php echo $row['sub_cat_name'] ?></a></h3>
     <?php }
