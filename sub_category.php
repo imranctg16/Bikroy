@@ -21,14 +21,18 @@ include 'Basic_structure/navbar.php';
             <?php
             if (isset($_GET['Category_id'])) {
 
+                $cat_obj=new Category;
                 $category_id = $_GET['Category_id'];
+                $result = $cat_obj->get_category_name($category_id);
+                $result=mysqli_fetch_assoc($result);
+                $category_name=$result['cat_name'];
                 echo $category_id;
                 ?>
                 <div class="well">
                     <h4>Side Widget Well</h4>
                     <div class="row">
                         <?php
-                        show_all_subcategory($category_id);
+                            show_all_subcategory($category_id);
                         ?>
                     </div>
                 </div>
@@ -38,7 +42,10 @@ include 'Basic_structure/navbar.php';
             <h1 class="page-header">
                 বেচাকেনার সময় নিরাপদ থাকুন!
             </h1>
-            <h4>Ei category er latest post gula show korano hobe </h4>
+            <h2> Category - <?php echo $category_name ?> </h2>
+            <?php
+                show_data_of_category($category_id);
+            ?>
         </div>
 
     </div>

@@ -241,11 +241,15 @@ function show_post_form()
     $image_error = "";
     $data_tag_error = "";
     $data_price_error = "";
+    $data_title_error="";
+    $data_desc_error="";
 
     ///useful_variable
     $data_tag = "";
     $data_image = "";
     $data_price = "";
+    $data_title = "";
+    $data_desc = "";
 
 
     if (isset($_POST['get_option'])) {
@@ -270,6 +274,8 @@ function show_post_form()
         $sub_category_id = $_POST['sub_category'];
         $data_tag = $_POST['data_tag'];
         $data_price = $_POST['data_price'];
+        $data_title = $_POST['data_title'];
+        $data_desc = $_POST['data_desc'];
 
         echo $user_id . " " . $division_id . " " . $category_id . " " . $sub_category_id;
 
@@ -326,10 +332,9 @@ function show_post_form()
             $image_error = "No Image was Selected";
         }
 
-        if ($data_tag_error == "" && $image_error == "" && $data_price_error == "") {
+        if ($data_tag_error == "" && $image_error == "" && $data_price_error == ""&& $data_desc_error == ""&& $data_title_error == "") {
 
-            $success = $data_obj->save_data($user_id, $division_id, $category_id, $sub_category_id, $data_tag, $data_image, $data_price);
-
+            $success = $data_obj->save_data($user_id, $division_id, $category_id, $sub_category_id, $data_tag, $data_image, $data_price,$data_title,$data_desc);
             if ($success) {
                 echo "Successfully Saved Data";
             } else {
@@ -401,6 +406,29 @@ function show_post_form()
             <input value="<?php if ($data_tag_error != '') echo $data_tag; ?>" class="form-control" name="data_tag"
                    type="text">
         </div>
+        <!--data_title-->
+        <div class="form-group">
+            <?php if ($data_title_error != "") {
+                echo "<label  for='data_title' class='text-center text-danger'>$data_title_error</label>";
+            } else {
+                echo '<label for="data_title">Title </label>';
+            }
+            ?>
+            <input value="<?php if ($data_title_error != '') echo $data_title; ?>" class="form-control" name="data_title"
+                   type="text">
+        </div>
+
+        <!--data_desc-->
+        <div class="form-group">
+            <?php if ($data_desc_error != "") {
+                echo "<label  for='data_desc' class='text-center text-danger'>$data_desc_error</label>";
+            } else {
+                echo '<label for="data_desc">Description </label>';
+            }
+            ?>
+            <input value="<?php if ($data_desc_error != '') echo $data_desc; ?>" class="form-control" name="data_desc"
+                   type="text">
+        </div>
 
         <!-- data_price field -->
         <div class="form-group">
@@ -454,6 +482,40 @@ function show_all_subcategory($category_id)
         <h3><a href=""><?php echo $row['sub_cat_name'] ?></a></h3>
     <?php }
 
+}
+
+?>
+
+<?php
+function show_data_of_category($cat_id)
+{
+
+    $data_obj = new Data;
+    $result = $data_obj->get_data_of($cat_id);
+    echo "Total " . mysqli_num_rows($result) . " Results found ";
+    if(mysqli_num_rows($result)==0)
+    {
+        echo "No data Found";
+        exit();
+    }
+    while ($row = mysqli_fetch_assoc($result)) {
+        ?>
+        <div class="card" style="width: 20rem;">
+            <img class="card-img-top" width="300" src="images/<?php echo $row['data_picture'] ?> " alt=" ছবি যুক্ত করা হইনি ">
+            <div class="card-block">
+                <h4 class="card-title"> <?php echo $row['data_title'] ?></h4>
+                <p class="card-text"><?php echo $row['data_desc'] ?></div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Price : <?php echo $row['data_price'] ?></li>
+                <li class="list-group-item">Post By : <?php echo $row['user_id'] ?></li>
+                <li class="list-group-item">Post Date :<?php echo  $row['data_date'] ?></li>
+                <li class="list-group-item">tag: <?php echo $row['data_tag'] ?>  </li>
+            </ul>
+            <div class="card-block">
+                <a href="#" class="card-link">View Details</a>
+            </div>
+        </div>
+    <?php }
 }
 
 ?>

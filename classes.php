@@ -189,8 +189,16 @@ class Category
             return $result;
         }
     }
-
-
+    public function get_category_name($category_id)
+    {
+        $sql = "SELECT * FROM category WHERE cat_id=$category_id";
+        $result = $this->connection->mysqli->query($sql);
+        if (!$result) {
+            die("Category  query Failed " . mysqli_error($this->connection->mysqli));
+        } else {
+            return $result;
+        }
+    }
 }
 class Sub_category
 {
@@ -232,10 +240,10 @@ class Data
         $this->connection = new Connection;
     }
 
-    function save_data($user_id,$division_id,$cat_id,$sub_cat_id,$data_tag,$data_image,$data_price)
+    function save_data($user_id,$division_id,$cat_id,$sub_cat_id,$data_tag,$data_image,$data_price,$data_title,$data_desc)
     {
-        $query = "INSERT INTO data(user_id,division_id,cat_id,sub_cat_id,data_tag,data_picture,data_price,data_date)";
-        $query .= " VALUES($user_id,$division_id,$cat_id,$sub_cat_id,'{$data_tag}','{$data_image}','{$data_price}', now())";
+        $query = "INSERT INTO data(user_id,division_id,cat_id,sub_cat_id,data_tag,data_picture,data_price,data_date,data_title,data_desc)";
+        $query .= " VALUES($user_id,$division_id,$cat_id,$sub_cat_id,'{$data_tag}','{$data_image}','{$data_price}', now(),'{$data_title}','{$data_desc}')";
         $result = $this->connection->mysqli->query($query);
         if (!$result) {
             die("Division query Failed " . mysqli_error($this->connection->mysqli));
@@ -243,7 +251,16 @@ class Data
             return $result;
         }
     }
-
+    function get_data_of($cat_id)
+    {
+        $sql = "SELECT * FROM data WHERE cat_id=$cat_id";
+        $result = $this->connection->mysqli->query($sql);
+        if (!$result) {
+            die("Division query Failed " . mysqli_error($this->connection->mysqli));
+        } else {
+            return $result;
+        }
+    }
 }
 
 
