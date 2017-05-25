@@ -241,8 +241,8 @@ function show_post_form()
     $image_error = "";
     $data_tag_error = "";
     $data_price_error = "";
-    $data_title_error="";
-    $data_desc_error="";
+    $data_title_error = "";
+    $data_desc_error = "";
 
     ///useful_variable
     $data_tag = "";
@@ -332,9 +332,9 @@ function show_post_form()
             $image_error = "No Image was Selected";
         }
 
-        if ($data_tag_error == "" && $image_error == "" && $data_price_error == ""&& $data_desc_error == ""&& $data_title_error == "") {
+        if ($data_tag_error == "" && $image_error == "" && $data_price_error == "" && $data_desc_error == "" && $data_title_error == "") {
 
-            $success = $data_obj->save_data($user_id, $division_id, $category_id, $sub_category_id, $data_tag, $data_image, $data_price,$data_title,$data_desc);
+            $success = $data_obj->save_data($user_id, $division_id, $category_id, $sub_category_id, $data_tag, $data_image, $data_price, $data_title, $data_desc);
             if ($success) {
                 echo "Successfully Saved Data";
             } else {
@@ -414,7 +414,8 @@ function show_post_form()
                 echo '<label for="data_title">Title </label>';
             }
             ?>
-            <input value="<?php if ($data_title_error != '') echo $data_title; ?>" class="form-control" name="data_title"
+            <input value="<?php if ($data_title_error != '') echo $data_title; ?>" class="form-control"
+                   name="data_title"
                    type="text">
         </div>
 
@@ -476,10 +477,11 @@ function show_all_subcategory($category_id)
 {
     $sub_category_obj = new Sub_category();
     $result = $sub_category_obj->get_all_subcategory($category_id);
-
     echo "Total " . mysqli_num_rows($result) . "Sub-Category-found";
     while ($row = mysqli_fetch_assoc($result)) { ?>
-        <h3><a href=""><?php echo $row['sub_cat_name'] ?></a></h3>
+        <h3>
+            <a href="sub_category.php?sub_cat_id=<?php echo $row['sub_cat_id'] ?>"><?php echo $row['sub_cat_name'] ?></a>
+        </h3>
     <?php }
 
 }
@@ -493,29 +495,54 @@ function show_data_of_category($cat_id)
     $data_obj = new Data;
     $result = $data_obj->get_data_of($cat_id);
     echo "Total " . mysqli_num_rows($result) . " Results found ";
-    if(mysqli_num_rows($result)==0)
-    {
+    if (mysqli_num_rows($result) == 0) {
         echo "No data Found";
         exit();
     }
+    show_data($result);
+} ?>
+
+
+<?php
+function show_data_of_sub_category($sub_cat_id)
+{
+
+    $data_obj = new Data;
+    $result = $data_obj->get_data_of_sub($sub_cat_id);
+    echo "Total " . mysqli_num_rows($result) . " Results found ";
+    if (mysqli_num_rows($result) == 0) {
+        echo "No data Found";
+        exit();
+    }
+    show_data($result);
+} ?>
+
+<?php
+function show_data($result)
+{
+    echo '<div class="row " style="border: solid">';
+    /*echo '<div class="col-md-4" style="border: dotted blueviolet">';*/
+
     while ($row = mysqli_fetch_assoc($result)) {
         ?>
-        <div class="card" style="width: 20rem;">
-            <img class="card-img-top" width="300" src="images/<?php echo $row['data_picture'] ?> " alt=" ছবি যুক্ত করা হইনি ">
+        <div class="card col-md-4">
+            <img class="card-img-top" width="210" src="images/<?php echo $row['data_picture'] ?> "
+                 alt=" ছবি যুক্ত করা হইনি ">
             <div class="card-block">
-                <h4 class="card-title"> <?php echo $row['data_title'] ?></h4>
-                <p class="card-text"><?php echo $row['data_desc'] ?></div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Price : <?php echo $row['data_price'] ?></li>
-                <li class="list-group-item">Post By : <?php echo $row['user_id'] ?></li>
-                <li class="list-group-item">Post Date :<?php echo  $row['data_date'] ?></li>
-                <li class="list-group-item">tag: <?php echo $row['data_tag'] ?>  </li>
-            </ul>
-            <div class="card-block">
-                <a href="#" class="card-link">View Details</a>
+                <h4 class="card-title"> <?php echo $row['data_title'] ?>   </h4>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Price : <?php echo $row['data_price'] ?></li>
+                    <li class="list-group-item">Post Date :<?php echo $row['data_date'] ?></li>
+                    <li class="list-group-item">tag: <?php echo $row['data_tag'] ?>  </li>
+                </ul>
+                <div class="card-block">
+                    <a href="#" class="btn btn-primary">View Details</a>
+                </div>
             </div>
         </div>
+
     <?php }
 }
-
 ?>
+
+

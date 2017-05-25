@@ -218,6 +218,16 @@ class Sub_category
             return $result;
         }
     }
+    public function get_sub_cat_name($id)
+    {
+        $sql = "SELECT * FROM sub_category WHERE sub_cat_id=$id";
+        $result = $this->connection->mysqli->query($sql);
+        if (!$result) {
+            die("Division query Failed " . mysqli_error($this->connection->mysqli));
+        } else {
+            return $result;
+        }
+    }
 
 
 }
@@ -260,6 +270,18 @@ class Data
         } else {
             return $result;
         }
+    }
+    function get_data_of_sub($sub_cat_id)
+    {
+        $sql = "SELECT * FROM data WHERE sub_cat_id=$sub_cat_id";
+        $result = $this->connection->mysqli->query($sql);
+        if (!$result) {
+            die("Division query Failed " . mysqli_error($this->connection->mysqli));
+        } else {
+            return $result;
+        }
+
+
     }
 }
 
