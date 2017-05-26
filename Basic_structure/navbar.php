@@ -1,46 +1,39 @@
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="./index.php">Home</a>
+<div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-left navbar-fixed-top" style="display:none;border: solid 2px"
+     id="mySidebar">
+    <button class="w3-bar-item w3-button w3-large"
+            onclick="w3_close()">Close &times;
+    </button>
+    <a href="./index.php" class="w3-bar-item w3-button  w3-hover-green">Home </a>
+    <a href="#" class="w3-bar-item w3-button  w3-hover-green">Admin</a>
+    <?php
+    if (is_user_logged_in()) {
+        echo '<a href="./adv_post.php" class="w3-bar-item w3-button w3-hover-green">SELL</a>';
+        echo '<a href="" class="w3-bar-item w3-button  w3-hover-green" >Profile</a>';
+        echo '<a href="./logout.php" class="w3-bar-item w3-button w3-hover-green" >Logout</a>';
+    } else {
+        echo '<a href="./registration.php" class="w3-bar-item w3-button w3-hover-green">Sign Up</a>';
+        echo '<a href="./login.php" class="w3-bar-item w3-button  w3-hover-green">Login</a>';
+    }
+    ?>
+</div>
+<div zclass="w3-main" id="main">
+    <div class="w3-teal" style="margin-top: -80px">
+        <button class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
+        <div class="w3-container">
+            <h1 style="font-family:Georgia">Bikroy.Com</h1>
         </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div>
-            <ul class="nav navbar-nav">
-                <li><a href="#">Admin</a></li>
-                <?php
-                    if(is_user_logged_in())
-                    {
-                        echo "<li><a href='./adv_post.php'><span class='glyphicon glyphicon-user'></span>SELL</a></li>";
-                    }
-                    else
-                    {
-                        echo "<li><a href='./registration.php'><span class='glyphicon glyphicon-user'></span>Sign Up</a></li>";
-                    }
-                ?>
-            </ul>
-            <?php
-            if (is_user_logged_in()) {
-                ?>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href=""><span class="glyphicon glyphicon-user"></span>Profile</a></li>
-
-                    <li><a href="./logout.php"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
-                </ul>
-            <?php } else { ?>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="./login.php"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
-                </ul>
-            <?php } ?>
-        </div>
-        <!-- /.navbar-collapse -->
     </div>
-    <!-- /.container -->
-</nav>
+
+    <script>
+        function w3_open() {
+            document.getElementById("main").style.marginLeft = "25%";
+            document.getElementById("mySidebar").style.width = "25%";
+            document.getElementById("mySidebar").style.display = "block";
+            document.getElementById("openNav").style.display = 'none';
+        }
+        function w3_close() {
+            document.getElementById("main").style.marginLeft = "0%";
+            document.getElementById("mySidebar").style.display = "none";
+            document.getElementById("openNav").style.display = "inline-block";
+        }
+    </script>

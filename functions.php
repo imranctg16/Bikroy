@@ -49,7 +49,7 @@ function show_reg_form()
         }
     }
     ?>
-    <div class="col-xs-12 col-xs-offset-3">
+    <div class="col-xs-12 col-xs-offset-3" xmlns:border-left="http://www.w3.org/1999/xhtml">
         <div class="form-wrap">
             <h1>Register</h1>
             <form role="form" action="<?php $_SERVER['PHP_SELF'] ?>" method="post" id="login-form" autocomplete="off">
@@ -343,12 +343,18 @@ function show_post_form()
         }
     }
     ?>
-    <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
+
+    <div class="w3-container w3-green" style="margin-top: 15px">
+        <h2>What Do You want to sell ?</h2>
+    </div>
+
+
+    <form class="w3-container" style="padding: 20px" action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
 
         <div class="form-group">
             <div class="form-group">
-                <label for="division">Select A Division</label>
-                <select name="division" id="">
+                <label class="w3-text-teal" for="division">Select A Division</label>
+                <select class="w3-select" name="division" id="">
                     <?php
                     $all_division = $division_obj->get_all_div();
                     echo "<option selected disabled>Choose here</option>";
@@ -361,9 +367,9 @@ function show_post_form()
                 </select>
             </div>
             <div class="form-group">
-                <label for="category">Select a Category </label>
+                <label class="w3-text-teal" for="category">Select a Category </label>
 
-                <select name="category" id="first-choice" onchange="fetch_select(this.value);">
+                <select class="w3-select" name="category" id="first-choice" onchange="fetch_select(this.value);">
                     <?php
                     $all_category = $category_obj->get_all_category();
                     echo "<option selected disabled>Choose From Above first </option>";
@@ -378,8 +384,8 @@ function show_post_form()
             </div>
 
             <div class="form-group">
-                <label for="sub_category">Select a Sub_category </label>
-                <select name="sub_category" id="second-choice">
+                <label class="w3-text-teal" for="sub_category">Select a Sub_category </label>
+                <select class="w3-select"  name="sub_category" id="second-choice">
                     <option>Please choose from above</option>
                 </select>
             </div>
@@ -387,9 +393,9 @@ function show_post_form()
 
         <div class="form-group">
             <?php if ($image_error != "") {
-                echo "<label  for='data_image' class='text-center text-danger'>$image_error</label>";
+                echo "<label class='w3-text-teal' for='data_image' class='text-center text-danger'>$image_error</label>";
             } else {
-                echo '<label for="data_image">Your image:</label>';
+                echo '<label class="w3-text-teal" for="data_image">Your image:</label>';
             }
             ?>
             <input class="form-control" name="data_image" type="file">
@@ -398,9 +404,9 @@ function show_post_form()
         <!-- data_tag field -->
         <div class="form-group">
             <?php if ($data_tag_error != "") {
-                echo "<label  for='data_tag' class='text-center text-danger'>$data_tag_error</label>";
+                echo "<label class='w3-text-teal' for='data_tag' class='text-center text-danger'>$data_tag_error</label>";
             } else {
-                echo '<label for="data_tag">Place Tag </label>';
+                echo '<label class="w3-text-teal" for="data_tag">Place Tag </label>';
             }
             ?>
             <input value="<?php if ($data_tag_error != '') echo $data_tag; ?>" class="form-control" name="data_tag"
@@ -409,9 +415,9 @@ function show_post_form()
         <!--data_title-->
         <div class="form-group">
             <?php if ($data_title_error != "") {
-                echo "<label  for='data_title' class='text-center text-danger'>$data_title_error</label>";
+                echo "<label class='w3-text-teal'  for='data_title' class='text-center text-danger'>$data_title_error</label>";
             } else {
-                echo '<label for="data_title">Title </label>';
+                echo '<label class="w3-text-teal"  for="data_title">Title </label>';
             }
             ?>
             <input value="<?php if ($data_title_error != '') echo $data_title; ?>" class="form-control"
@@ -422,9 +428,9 @@ function show_post_form()
         <!--data_desc-->
         <div class="form-group">
             <?php if ($data_desc_error != "") {
-                echo "<label  for='data_desc' class='text-center text-danger'>$data_desc_error</label>";
+                echo "<label class='w3-text-teal' for='data_desc' class='text-center text-danger'>$data_desc_error</label>";
             } else {
-                echo '<label for="data_desc">Description </label>';
+                echo '<label class="w3-text-teal" for="data_desc">Description </label>';
             }
             ?>
             <input value="<?php if ($data_desc_error != '') echo $data_desc; ?>" class="form-control" name="data_desc"
@@ -434,9 +440,9 @@ function show_post_form()
         <!-- data_price field -->
         <div class="form-group">
             <?php if ($data_price_error != "") {
-                echo "<label  for='data_price' class='text-center text-danger'>$data_price_error</label>";
+                echo "<label class='w3-text-teal'  for='data_price' class='text-center text-danger'>$data_price_error</label>";
             } else {
-                echo '<label for="data_price">Asking Price </label>';
+                echo '<label class="w3-text-teal" for="data_price">Asking Price </label>';
             }
             ?>
             <input value="<?php if ($data_tag_error != '') echo $data_price; ?>" class="form-control" name="data_price"
@@ -520,12 +526,12 @@ function show_data_of_sub_category($sub_cat_id)
 <?php
 function show_data($result)
 {
-    echo '<div class="row " style="border: solid">';
+    echo '<div class="row ">';
     /*echo '<div class="col-md-4" style="border: dotted blueviolet">';*/
 
     while ($row = mysqli_fetch_assoc($result)) {
         ?>
-        <div class="card col-md-4">
+        <div class="card col-md-4"  style="border-left: solid royalblue">
             <img class="card-img-top" width="210" src="images/<?php echo $row['data_picture'] ?> "
                  alt=" ছবি যুক্ত করা হইনি ">
             <div class="card-block">
