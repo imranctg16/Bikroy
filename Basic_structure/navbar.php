@@ -1,4 +1,4 @@
-<div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-left navbar-fixed-top" style="display:none;border: solid 2px"
+<div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-left " style="display:none;border: solid 2px"
      id="mySidebar">
     <button class="w3-bar-item w3-button w3-large"
             onclick="w3_close()">Close &times;
@@ -17,10 +17,11 @@
     ?>
     <a href="./contact.php" class="w3-bar-item w3-button  w3-hover-blue">Contact Us</a>
 </div>
+
 <div zclass="w3-main" id="main">
-    <div class="w3-teal" style="margin-top: -10px">
-        <button class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
-        <div class="w3-container">
+    <div class="w3-white" style="margin-top: -10px">
+        <button class="w3-button w3-red w3-xlarge" onclick="w3_open()">&#9776;</button>
+        <div class="w3-container w3-blue">
             <h1 style="font-family:Georgia">Bikroy.Com</h1>
         </div>
     </div>

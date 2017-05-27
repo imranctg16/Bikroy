@@ -7,17 +7,17 @@
 <div class="container">
 
     <!-- Blog Sidebar Widgets Column -->
-    <div class="row">
-        <div style="border: dashed" class="col-lg-3">
-            <?php include "Basic_structure/sidebar.php"; ?>
-        </div>
-        <div class="col-lg-8">
+    <div class="w3-row">
+        <div class="w3-col m8 l8">
             <h1 class="page-header">
                 বেচাকেনার সময় নিরাপদ থাকুন!
             </h1>
             <?php
             show_all_category()
             ?>
+        </div>
+        <div style="border: dashed" class="w3-col m4 l4" >
+            <?php include "Basic_structure/sidebar.php"; ?>
         </div>
 
     </div>

@@ -467,14 +467,21 @@ function show_all_category()
 {
     $select_category_class = new Category();
     $select_category = $select_category_class->get_all_category();
+    echo '<div class="w3-row" >';
     while ($row = mysqli_fetch_assoc($select_category)) { ?>
-        <div style="border: dashed" class="col-md-3">
-            <h2 class="text-center"><a
-                        href="sub_category.php?Category_id=<?php echo $row['cat_id'] ?>"><?php echo $row['cat_name']; ?></a>
-            </h2>
-            <p class="text-center"><?php echo $row['cat_description']; ?></p>
+
+        <div class="w3-col m2 w3-center">
+            <div class="w3-card-2" style="width:auto;">
+                <header class="w3-container w3-blue">
+                    <a style="margin:20px" href="sub_category.php?Category_id=<?php echo $row['cat_id'] ?>"><?php echo $row['cat_name']; ?></a>
+                </header>
+                <div class="w3-container">
+                    <p class="text-center"><?php echo $row['cat_description']; ?></p>
+                </div>
+            </div>
         </div>
     <?php }
+    echo '</div>';
 } ?>
 
 
