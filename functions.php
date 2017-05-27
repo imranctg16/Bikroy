@@ -349,7 +349,8 @@ function show_post_form()
     </div>
 
 
-    <form class="w3-container" style="padding: 20px" action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
+    <form class="w3-container" style="padding: 20px" action="<?php $_SERVER['PHP_SELF'] ?>" method="post"
+          enctype="multipart/form-data">
 
         <div class="form-group">
             <div class="form-group">
@@ -385,7 +386,7 @@ function show_post_form()
 
             <div class="form-group">
                 <label class="w3-text-teal" for="sub_category">Select a Sub_category </label>
-                <select class="w3-select"  name="sub_category" id="second-choice">
+                <select class="w3-select" name="sub_category" id="second-choice">
                     <option>Please choose from above</option>
                 </select>
             </div>
@@ -398,9 +399,9 @@ function show_post_form()
                 echo '<label class="w3-text-teal" for="data_image">Your image:</label>';
             }
             ?>
-            <input class="form-control" name="data_image" type="file">
+            <input class="form-control" name="data_image" onchange="readURL(this);" type="file">
+            <img id="blah" src="#" alt="Preview"/>
         </div>
-
         <!-- data_tag field -->
         <div class="form-group">
             <?php if ($data_tag_error != "") {
@@ -531,7 +532,7 @@ function show_data($result)
 
     while ($row = mysqli_fetch_assoc($result)) {
         ?>
-        <div class="card col-md-4"  style="border-left: solid royalblue">
+        <div class="card col-md-4" style="border-left: solid royalblue">
             <img class="card-img-top" width="210" src="images/<?php echo $row['data_picture'] ?> "
                  alt=" ছবি যুক্ত করা হইনি ">
             <div class="card-block">
@@ -549,6 +550,25 @@ function show_data($result)
 
     <?php }
 }
+
 ?>
 
+<script type="text/javascript">
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>
 

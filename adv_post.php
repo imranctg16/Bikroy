@@ -13,18 +13,17 @@ include 'Basic_structure/navbar.php';
 
 <script type="text/javascript">
 
-    function fetch_select(val)
-    {
+    function fetch_select(val) {
 
         $.ajax({
             type: 'post',
             url: 'adv_post.php',
             data: {
-                get_option:val
+                get_option: val
             },
             success: function (response) {
                 console.log("ajax called ");
-                document.getElementById("second-choice").innerHTML=response;
+                document.getElementById("second-choice").innerHTML = response;
 
             }
         });
@@ -38,7 +37,7 @@ include 'Basic_structure/navbar.php';
     <div class="col-lg-8 col-md-offset-3">
         <title> Post What You Want to sell </title>
         <?php
-             show_post_form();
+        show_post_form();
         ?>
     </div>
 </div>
@@ -51,4 +50,3 @@ include 'Basic_structure/navbar.php';
 <?php
 include 'Basic_structure/footer.php';
 ?>
-

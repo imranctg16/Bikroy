@@ -3,21 +3,22 @@
     <button class="w3-bar-item w3-button w3-large"
             onclick="w3_close()">Close &times;
     </button>
-    <a href="./index.php" class="w3-bar-item w3-button  w3-hover-green">Home </a>
-    <a href="#" class="w3-bar-item w3-button  w3-hover-green">Admin</a>
+    <a href="./index.php" class="w3-bar-item w3-button  w3-hover-blue">Home </a>
+    <a href="#" class="w3-bar-item w3-button  w3-hover-blue">Admin</a>
     <?php
     if (is_user_logged_in()) {
-        echo '<a href="./adv_post.php" class="w3-bar-item w3-button w3-hover-green">SELL</a>';
-        echo '<a href="" class="w3-bar-item w3-button  w3-hover-green" >Profile</a>';
-        echo '<a href="./logout.php" class="w3-bar-item w3-button w3-hover-green" >Logout</a>';
+        echo '<a href="./adv_post.php" class="w3-bar-item w3-button w3-hover-blue">SELL</a>';
+        echo '<a href="" class="w3-bar-item w3-button w3-hover-blue" >Profile</a>';
+        echo '<a href="./logout.php" class="w3-bar-item w3-button w3-hover-blue" >Logout</a>';
     } else {
-        echo '<a href="./registration.php" class="w3-bar-item w3-button w3-hover-green">Sign Up</a>';
-        echo '<a href="./login.php" class="w3-bar-item w3-button  w3-hover-green">Login</a>';
+        echo '<a href="./registration.php" class="w3-bar-item w3-button w3-hover-blue">Sign Up</a>';
+        echo '<a href="./login.php" class="w3-bar-item w3-button w3-hover-blue">Login</a>';
     }
     ?>
+    <a href="./contact.php" class="w3-bar-item w3-button  w3-hover-blue">Contact Us</a>
 </div>
 <div zclass="w3-main" id="main">
-    <div class="w3-teal" style="margin-top: -80px">
+    <div class="w3-teal" style="margin-top: -10px">
         <button class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
         <div class="w3-container">
             <h1 style="font-family:Georgia">Bikroy.Com</h1>
